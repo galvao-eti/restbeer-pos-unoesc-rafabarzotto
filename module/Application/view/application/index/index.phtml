@@ -1,5 +1,19 @@
-<a href="/create">Adicionar cerveja</a>
+<a href="/insert"><button type="button" class="btn btn-primary">Adicionar Cerveja</button></a>
 <br>
-<?php foreach ($beers as $beer): ?>
-    <?php echo $beer->name;?> <br>
-<?php endforeach;?>
+<table class="table table-striped">
+	<tr>
+		<th>ID</th>
+		<th>Nome</th>
+		<th>Estilo</th>
+		<th> # </th>
+			<?php foreach ($beers as $beer): ?>	
+	</tr>					
+		<td><?php echo $beer->id;?></td>
+		<td><?php echo $beer->name;?></td>
+		<td><?php echo $beer->style;?></td>
+		<td>
+		 <a href="/insert/<?php echo $beer->id ;?>" title="Editar"><button type="button" class="btn btn-warning">Editar</button></a>
+		 <a href="/delete/<?php echo $beer->id;?>" rel="confirmation" title="Deseja excluir este registro?"><button type="button" class="btn btn-danger">Deletar</button></a>
+		</td>
+		<?php endforeach;?>
+</table>

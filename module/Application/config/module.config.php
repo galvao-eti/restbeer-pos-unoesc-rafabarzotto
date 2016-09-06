@@ -20,23 +20,23 @@ return array(
                     ),
                 ),
             ),
-            'create' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/create',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action'     => 'create',
-                    ),
-                ),
-            ),
             'insert' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/insert',
+                    'route'    => '/insert[/][/:id]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'insert',
+                    ),
+                ),
+            ),
+            'delete' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/delete/[:id]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'delete',
                     ),
                 ),
             ),

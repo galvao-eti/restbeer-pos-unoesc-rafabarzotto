@@ -22,15 +22,6 @@ class IndexController extends AbstractActionController
         return new ViewModel(array('beers' => $beers));
     }
 
-    public function createAction()
-    {
-        $form = $this->getServiceLocator()->get('Application\Form\Beer');
-        $form->setAttribute('action', '/insert');
-        $form->get('send')->setAttribute('value', 'Salvar');
-
-        return new ViewModel(['beerForm' => $form]);
-    }
-
     public function insertAction()
     {
         $form = $this->getServiceLocator()->get('Application\Form\Beer');
@@ -53,6 +44,32 @@ class IndexController extends AbstractActionController
             }
         }
 
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id > 0) { 
+            //é uma atualização   
+            /* busca a entidade no banco de dados*/
+            $post = $tableGateway->get($id);
+            //echo $post;
+            /* preenche o formulário com os  dados do banco de dados*/
+            $form->bind($post);
+            /* muda o texto do botão submit*/
+            $form->get('send')->setAttribute('value', 'Editar');
+        }
+
         return new ViewModel(['beerForm' => $form]);
+    }
+
+    public function deleteAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id == 0) {
+            throw new \Exception("Código obrigatório");
+        }
+
+        $tableGateway = $this->getServiceLocator()->get('Application\Model\BeerTableGateway');
+        /* remove o registro e redireciona para a página inicial*/
+        $tableGateway->delete($id);
+        
+        return $this->redirect()->toUrl('/');
     }
 }
