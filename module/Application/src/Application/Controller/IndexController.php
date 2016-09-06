@@ -26,6 +26,7 @@ class IndexController extends AbstractActionController
     {
         $form = $this->getServiceLocator()->get('Application\Form\Beer');
         $form->setAttribute('action', '/insert');
+        $form->get('send')->setAttribute('value', 'Salvar');
         $tableGateway = $this->getServiceLocator()->get('Application\Model\BeerTableGateway');
         $beer = new \Application\Model\Beer;
         $request = $this->getRequest();
